@@ -1,31 +1,30 @@
-# Roland SP-404MKII Interactive Cheat Sheet
+# Roland SP-404MKII 交互式速查表
 
-A fast, visual shortcut finder and hardware companion for the **Roland SP-404MKII** (Firmware v5.50), built with SvelteKit and TypeScript.
+一款基于SvelteKit和TypeScript开发的、适用于**Roland SP-404MKII**（固件版本v5.50）的快速可视化快捷键查找工具与硬件配套辅助工具。
 
-🔗 **Live Tool:** [SP-404MKII Cheat Sheet](https://cntrvsy.github.io/sp404mk2cheatsheet/)
-
----
-
-## Features
-
-- **Bidirectional Hardware Highlighting:** Click knobs, pads, or buttons on the virtual faceplate to filter matching shortcuts. Click any card to preview the button combo and OLED screen state.
-- **Physical Muscle-Memory Layout:** Preserves 1:1 hardware geometry across mobile and desktop, with a thumb-zoom toggle for touch targets.
-- **Cross-Gear DAW / Slang Search:** Search using MPC, Ableton, FL Studio, or community terms (_"choke group"_, _"one shot"_, _"16 levels"_, _"lazy chop"_, _"resample bounce"_) via [`src/lib/data/aliases.json`](./src/lib/data/aliases.json).
-- **Curated Studio Sheet & PDF:** Pin go-to shortcuts into a custom sheet and export a high-density, ink-friendly 1–2 page reference table.
-- **Strict Verification:** 101 shortcuts with verbatim citations checked against the official Roland Reference Manual on every build.
+🔗 **在线工具:** [SP-404MKII 交互式速查表](https://cntrvsy.github.io/sp404mk2cheatsheet/)
 
 ---
 
-## Verification Pipeline
+## 功能特性
 
-To eliminate hearsay and firmware drift, all data is verified against the manual:
+- **双向硬件高亮:** 点击虚拟面板上的旋钮、打击垫或按钮，筛选匹配的快捷键。点击任意卡片，预览按键组合以及OLED屏幕显示状态。
+- **物理肌肉记忆布局:** 在移动端和桌面端保持1:1的硬件几何尺寸，同时提供用于触控区域的拇指缩放开关。
+- **跨平台数字音频工作站 / 术语搜索:** 通过 [`src/lib/data/aliases.json`](./src/lib/data/aliases.json)，使用 MPC、Ableton、FL Studio 或者社区术语（"choke group"、"one shot"、"16 levels"、"lazy chop"、"resample bounce"）进行搜索。
+- **精选工作室表单及PDF文件:** 将常用快捷指令固定到自定义工作表，并导出一份紧凑、适合打印的1–2页参考表。
+- **严格验证:** 每一个版本都对照罗兰官方参考手册核验原文引用，共101条快捷指令。
+---
 
-- **Reference Corpus ([`docs/reference/roland-v550/`](./docs/reference/roland-v550/)):** Roland v5.50 manual chapters extracted with page anchors (`<!-- [Page N] -->`).
-- **Closed-Loop CI Validator ([`scripts/validate-tips.mjs`](./scripts/validate-tips.mjs)):** Runs during `npm run check` to ensure:
-  1. Tip `buttons` exactly match the hardware IDs in `combo`.
-  2. Each tip's `citation.quote` exists verbatim on the referenced manual page.
-  3. Search aliases in `aliases.json` maintain 1:1 coverage without keyword bloat.
-- **PDF Ingestion ([`scripts/ingest-pdf.mjs`](./scripts/ingest-pdf.mjs)):** Parses new manuals into chapter markdown files with auto-extracted shortcuts:
+## 验证流程
+
+为消除传闻与固件偏差，所有数据均对照手册进行核验:
+
+- **参考语料库 ([`docs/reference/roland-v550/`](./docs/reference/roland-v550/)):** Roland v5.50 手册章节，已提取并附带页面锚点 (`<!-- [Page N] -->`).
+- **闭环 CI 校验器 ([`scripts/validate-tips.mjs`](./scripts/validate-tips.mjs)):** 在执行 `npm run check` 时自动运行，用来保证:
+  1. 确保 `buttons`与`combo`中的硬件ID完全匹配。
+  2. 每个提示中的`citation.quote` 内容与所引用的手册页上的原文完全一致。
+  3. 在 `aliases.json` 中搜索别名时，既能保持 1:1 的覆盖率，又不会导致关键词冗余。
+- **PDF 导入 ([`scripts/ingest-pdf.mjs`](./scripts/ingest-pdf.mjs)):** 将新手册解析为包含自动提取的快捷方式的章节 Markdown 文件：
   ```sh
   npm run docs:ingest -- --pdf /path/to/manual.pdf --slug roland-v600 --title "Roland SP-404MKII Manual v6.00"
   ```
